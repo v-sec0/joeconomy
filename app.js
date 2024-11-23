@@ -48,7 +48,7 @@ app.post("/login", async (req, res) =>{
 	res.json({test: "login reached"});
 });
 
-//Log in page
+//View a specific account
 app.get("/account?:id", async (req, res) =>{
 	res.json({test: "account reached " + req.params.id});
 });
