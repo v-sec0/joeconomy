@@ -1,7 +1,23 @@
 {
   "dependencies": {
     "dotenv": "^16.4.5",
+    "ejs": "^3.1.10",
     "express": "^4.21.1",
-    "mongodb": "^6.11.0"
-  }
+    "mongodb": "^6.11.0",
+    "nodemon": "^3.1.7"
+  },
+  "name": "joeconomy",
+  "version": "1.0.0",
+  "main": "app.js",
+  "directories": {
+    "doc": "docs"
+  },
+  "scripts": {
+    "dev": "nodemon app.js",
+    "start": "node app.js"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "description": ""
 }

@@ -1,6 +1,17 @@
 require('dotenv').config();
+
+// Const declarations
 const { MongoClient, ServerApiVersion } = require('mongodb');
+const bodyParser = require('body-parser');
+const express = require('express');
+const app = express();
 const uri = process.env.MONGODB_URI;
+const port = process.env.PORT;
+
+// Express settings
+app.set('view engine', 'ejs');
+app.use(bodyParser.urlencoded({ extended: true }));
+app.use(express.static('./public/'));
 
 // Create a MongoClient with a MongoClientOptions object to set the Stable API version
 const client = new MongoClient(uri, {
@@ -24,3 +35,27 @@ async function run() {
 	}
 }
 run().catch(console.dir);
+
+//Home page
+//Automatically sends to login if not logged in
+app.get("/", async (req, res) =>{
+	res.sendFile(__dirname + '/index.html');
+});
+
+//Log in front end page
+app.get("/login", async (req, res) =>{
+	res.json({test: "login reached"});
+});
+
+//Back end link to actually process logging in
+app.post("/login", async (req, res) =>{
+	res.json({test: "login reached"});
+});
+
+//View a specific account
+app.get("/account/{:id}", async (req, res) =>{
+	res.json({test: "account reached " + req.params.id});
+});
+
+
+app.listen(port, () => console.log(`Server is running...on ${ port }` ));
