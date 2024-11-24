@@ -1,12 +1,16 @@
 require('dotenv').config();
 
 // Const declarations
+const bcrypt = require('bcrypt');
 const { MongoClient, ServerApiVersion } = require('mongodb');
 const bodyParser = require('body-parser');
 const express = require('express');
 const app = express();
 const uri = process.env.MONGODB_URI;
 const port = process.env.PORT;
+
+const saltRounds = 10;
+
 
 // Express settings
 app.set('view engine', 'ejs');
@@ -50,6 +54,57 @@ app.get("/login", async (req, res) =>{
 //Back end link to actually process logging in
 app.post("/login", async (req, res) =>{
 	res.json({test: "login reached"});
+});
+
+//Register front end page
+app.get("/register", async (req, res) =>{
+	res.sendFile(__dirname + '/public/register.html');
+});
+
+//Back end link to actually processes registering
+app.post("/register", async (req, res) =>{
+	let username = req.body.username;
+	let password = req.body.password;
+	let passwordHash = "";
+	let success = true;
+
+	bcrypt.genSalt(saltRounds, (err, salt) => {
+		if (err) {
+			console.log("Salt error");
+			success = false;
+			return;
+		}
+
+		bcrypt.hash(password, salt, (err, hash) => {
+			if (err) {
+				console.log("Hash error");
+				success = false;
+				return;
+			}
+			passwordHash = hash;
+		});
+	});
+
+	try {
+		await client.connect();
+		const database = client.db("joeconomy");
+		const users = database.collection("users");
+
+		const newUser = {
+			username: username,
+			password: passwordHash,
+			joes: 500,
+			robCooldown: null ,
+			inventory: {}
+		}
+
+		const result = await users.insertOne(newUser);
+		console.log(`A new user was created with the _id: ${result.insertedId}`);
+	  } finally {
+		await client.close();
+	  }
+
+	res.json({success: success});
 });
 
 //View a specific account
