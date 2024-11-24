@@ -48,12 +48,36 @@ app.get("/", async (req, res) =>{
 
 //Log in front end page
 app.get("/login", async (req, res) =>{
-	res.json({test: "login reached"});
+	res.sendFile(__dirname + '/public/login.html');
 });
 
 //Back end link to actually process logging in
 app.post("/login", async (req, res) =>{
-	res.json({test: "login reached"});
+	await client.connect();
+	const database = client.db("joeconomy");
+	const users = database.collection("users");
+
+	let username = req.body.username;
+	let password = req.body.password;
+	let dbUser = await users.findOne({username: username});
+	let dbPassword = dbUser.password;
+	let success = true;
+
+	bcrypt.compare(password, dbPassword, (err, result) => {
+		if (err) {
+			console.error('Error comparing passwords:', err);
+			success = false;
+			return;
+		}
+	
+		if (result) {
+			console.log('Passwords match! User authenticated.');
+		} else {
+			console.log('Passwords do not match! Authentication failed.');
+		}
+	});
+
+	res.json({success: success});
 });
 
 //Register front end page
