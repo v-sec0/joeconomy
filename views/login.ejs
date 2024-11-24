@@ -1,0 +1,27 @@
+<%- include('partials/start.ejs')%>
+    <div class="login-container">
+        <h2 class="text-center mb-4">Login</h2>
+        <button class="btn btn-google w-100 mb-3" onclick="window.location.href='/auth/google'">
+            <img src="/assets/google-icon.svg" alt="Google Icon">
+            Sign in with Google
+        </button>
+        <form>
+            <div class="mb-3">
+                <label for="username" class="form-label">Username</label>
+                <input type="text" class="form-control" id="username" required>
+            </div>
+            <div class="mb-3">
+                <label for="password" class="form-label">Password</label>
+                <input type="password" class="form-control" id="password" required>
+            </div>
+            <div class="mb-3 form-check">
+                <input type="checkbox" class="form-check-input" id="remember-me">
+                <label class="form-check-label" for="remember-me">Remember me</label>
+            </div>
+            <button type="submit" class="btn btn-primary w-100">Log In</button>
+        </form>
+        <p class="text-center mt-3 mb-0">
+            <a href="#" class="text-decoration-none">Forgot password?</a>
+        </p>
+    </div>
+<%- include('partials/end.ejs')%>

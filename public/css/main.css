@@ -1,0 +1,38 @@
+
+* {
+    --background: #32292F;
+    --foreground: #575366;
+    --primary: #6E7DAB;
+    --secondary: #5762D5;
+    --tertiary: #D1E3DD;
+}
+
+body {
+    font-family: "Merriweather Sans", sans-serif;
+    background: white;
+    height: 100%;
+}
+
+.login-container {
+    margin-top: 10%;
+    background-color: white;
+    border-radius: 15px;
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+    padding: 2rem;
+    max-width: 400px;
+    width: 90%;
+}
+
+.btn-google {
+    background-color: #fff;
+    color: #757575;
+    border: 1px solid #ddd;
+}
+.btn-google:hover {
+    background-color: #f1f1f1;
+}
+.btn-google img {
+    width: 20px;
+    height: 20px;
+    margin-right: 10px;
+}

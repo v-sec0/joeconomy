@@ -8,10 +8,11 @@ const app = express();
 const uri = process.env.MONGODB_URI;
 const port = process.env.PORT;
 
+
 // Express settings
-app.set('view engine', 'ejs');
+app.set('view engine', 'ejs')
 app.use(bodyParser.urlencoded({ extended: true }));
-app.use(express.static('./public/'));
+app.use(express.static(__dirname + '/public/'));
 
 // Create a MongoClient with a MongoClientOptions object to set the Stable API version
 const client = new MongoClient(uri, {
@@ -36,6 +37,12 @@ async function run() {
 }
 run().catch(console.dir);
 
+// MongoDB parameters
+const db = client.db("joeconomy");
+const users = db.collection("users");
+const items = db.collection("items");
+
+// ------------------ ENDPOINTS ------------------------------
 //Home page
 //Automatically sends to login if not logged in
 app.get("/", async (req, res) =>{
@@ -44,7 +51,7 @@ app.get("/", async (req, res) =>{
 
 //Log in front end page
 app.get("/login", async (req, res) =>{
-	res.json({test: "login reached"});
+	res.render("login", {pageTitle: "Login - Joeconomy"});
 });
 
 //Back end link to actually process logging in
