@@ -27,6 +27,7 @@
  */
 declare module '$env/static/private' {
 	export const MONGODB_URI: string;
+	export const PORT: string;
 	export const ALLUSERSPROFILE: string;
 	export const APPDATA: string;
 	export const ChocolateyInstall: string;
@@ -137,6 +138,7 @@ declare module '$env/static/public' {
 declare module '$env/dynamic/private' {
 	export const env: {
 		MONGODB_URI: string;
+		PORT: string;
 		ALLUSERSPROFILE: string;
 		APPDATA: string;
 		ChocolateyInstall: string;
