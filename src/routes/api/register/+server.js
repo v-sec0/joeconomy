@@ -5,21 +5,26 @@ import bcrypt from 'bcrypt';
 
 // This handles POST request
 export async function POST({ request }) {
+	const db = await connectToDB();
+	const users = await db.collection("users");
+
 	const data = await request.json();
 	const username = data.username;
 	const password = data.password;
 	const saltRounds = 10
+
+	let userExists = await users.findOne({username: username});
+	if(userExists){
+		return json({ success: false, message: "User Already Exists" });
+	}
 	
 	// Generate the salt
-	let salt = await bcrypt.genSalt(saltRounds)
+	let salt = await bcrypt.genSalt(saltRounds);
 	
 	// Hash the provided password
-	let hash = await bcrypt.hash(password, salt)
+	let hash = await bcrypt.hash(password, salt);
 	
-	try {
-		const db = await connectToDB();
-		const users = await db.collection("users");
-		
+	try {		
 		const newUsrObj = {
 			username: username,
 			password: hash,
