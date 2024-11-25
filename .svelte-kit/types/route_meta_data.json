@@ -1,0 +1,12 @@
+{
+	"/": [],
+	"/api/login": [
+		"src/routes/api/login/+server.js"
+	],
+	"/api/register": [
+		"src/routes/api/register/+server.js"
+	],
+	"/login": [
+		"src/routes/login/+page.server.js"
+	]
+}
