@@ -18,7 +18,7 @@
 		"src/routes/login/+page.server.js"
 	],
 	"/user": [
-		"src/routes/user/+page.js"
+		"src/routes/user/+page.server.js"
 	],
 	"/user/[username]": [
 		"src/routes/user/[username]/+page.js"

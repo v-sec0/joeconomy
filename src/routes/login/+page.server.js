@@ -34,7 +34,7 @@ export const actions = {
 				const token = jwt.sign(
 					{
 						username: username,
-						userID: responseData?.id,
+						id: responseData?.id,
 					},
 					JWT_SECRET,
 					{ expiresIn: '30d' }
