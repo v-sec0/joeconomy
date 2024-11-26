@@ -32,7 +32,10 @@ export const actions = {
 			
 			if (responseData.success) {
 				const token = jwt.sign(
-					{ username: username },
+					{
+						username: username,
+						userID: responseData?.id,
+					},
 					JWT_SECRET,
 					{ expiresIn: '30d' }
 				);
@@ -49,11 +52,11 @@ export const actions = {
 			} else {
 				return fail(401, { message: 'Invalid credentials' });
 			}
-		} catch (error) {
-			if (error.status === 303) {
-				throw error;
+		} catch (err) {
+			if (err.status === 303) {
+				throw err;
 			} else {
-				console.log(`Login Error: ${error.message}`);
+				console.log(`Login Error: ${err.message}`);
 			}
 		}
 	},
@@ -83,8 +86,8 @@ export const actions = {
 			} else {
 				return fail(400, { message: responseData.message || 'Registration failed' });
 			}
-		} catch (error) {
-			console.error('Registration error:', error);
+		} catch (err) {
+			console.error('Registration error:', err);
 			return fail(500, { message: 'An error occurred during registration' });
 		}
 	}
