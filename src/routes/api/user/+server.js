@@ -18,13 +18,11 @@ export async function POST({ request }) {
 
 
 	if(user){
-		console.log("user found");
 		username = user.username;
 		joes = user.joes;
 		inventory = user.inventory;
 	}
 	else{
-		console.log("user not found");
 		username = "User not found";
 	}
 

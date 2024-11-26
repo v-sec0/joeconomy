@@ -2,9 +2,9 @@
 	"/": [
 		"src/routes/+page.server.ts"
 	],
-  "/api/allUsers": [
+	"/api/allUsers": [
 		"src/routes/api/allUsers/+server.js"
-  ],
+	],
 	"/api/login": [
 		"src/routes/api/login/+server.js"
 	],
