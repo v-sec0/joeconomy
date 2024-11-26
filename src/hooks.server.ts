@@ -8,14 +8,21 @@ export const handle: Handle = async ({ event, resolve }) => {
     const token = event.cookies.get('session_token');
     if (!token) {
         // If no token then user is not logged in
-        event.locals.user = '';
+        // @ts-ignore
+        event.locals.user = null;
     } else {
         try {
             const decoded = jwt.verify(token, JWT_SECRET);
-            event.locals.user = decoded.userID;
+            event.locals.user = {
+                // @ts-ignore
+                username: decoded.username,
+                // @ts-ignore
+                id: decoded.id
+            };
         } catch (err) {
             event.cookies.delete('session_token', {path: '/'})
-            event.locals.user = ''
+            //@ts-ignore
+            event.locals.user = null;
         }
     }
 
