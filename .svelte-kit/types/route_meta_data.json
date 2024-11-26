@@ -1,8 +1,10 @@
 {
-	"/": [],
-	"/api/allUsers": [
-		"src/routes/api/allUsers/+server.js"
+	"/": [
+		"src/routes/+page.server.ts"
 	],
+  "/api/allUsers": [
+		"src/routes/api/allUsers/+server.js"
+  ],
 	"/api/login": [
 		"src/routes/api/login/+server.js"
 	],
