@@ -1,42 +1,16 @@
 <script>
-    export let form
+    export let data
 </script>
 
-<div class="container">
-    <div class="card">
-        <div class="header">
-            <h2>Login</h2>
-            <p>Enter your credentials to access your account</p>
-            {#if form?.message }
-                <p>{form.message}</p>
-            {/if}
-        </div>
-        <form method="POST" action="?/login">
-            <div class="form-group">
-                <label for="username">Username</label>
-                <input
-                        id="username"
-                        type="text"
-                        name="username"
-                        required
-                />
-            </div>
-            <div class="form-group">
-                <label for="password">Password</label>
-                <input
-                        id="password"
-                        type="password"
-                        name="password"
-                        required
-                />
-            </div>
-            <div class="button-group">
-                <button type="submit" class="primary">Log in</button>
-                <button formaction="?/register" class="secondary">Sign up</button>
-            </div>
-        </form>
-    </div>
-</div>
+{#if data}
+    <p>Username: {data.username}</p>
+    <p>Joes: {data.joes}</p>
+    <p>Inventory:</p>
+    {#each Object.entries(data.inventory) as [item, quantity]}
+        <p>{item}: {quantity}</p>
+    {/each}
+{/if}
+
 
 <style>
     .container {
@@ -131,5 +105,49 @@
 
     .secondary:hover {
         background-color: #eff6ff;
+    }
+
+    .divider {
+        display: flex;
+        align-items: center;
+        text-align: center;
+        margin: 1rem 0;
+    }
+
+    .divider::before,
+    .divider::after {
+        content: '';
+        flex: 1;
+        border-bottom: 1px solid #d1d5db;
+    }
+
+    .divider span {
+        padding: 0 0.5rem;
+        color: #6b7280;
+        font-size: 0.875rem;
+    }
+
+    .google-button {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 100%;
+        padding: 0.5rem;
+        border: 1px solid #d1d5db;
+        border-radius: 4px;
+        background-color: white;
+        color: #374151;
+        font-size: 1rem;
+        cursor: pointer;
+    }
+
+    .google-button:hover {
+        background-color: #f9fafb;
+    }
+
+    .google-button svg {
+        width: 1.5rem;
+        height: 1.5rem;
+        margin-right: 0.5rem;
     }
 </style>
