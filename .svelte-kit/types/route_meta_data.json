@@ -3,6 +3,9 @@
 	"/api/allUsers": [
 		"src/routes/api/allUsers/+server.js"
 	],
+	"/api/game": [
+		"src/routes/api/game/+server.js"
+	],
 	"/api/login": [
 		"src/routes/api/login/+server.js"
 	],
@@ -11,6 +14,9 @@
 	],
 	"/api/user": [
 		"src/routes/api/user/+server.js"
+	],
+	"/coin-flip": [
+		"src/routes/coin-flip/+page.server.js"
 	],
 	"/login": [
 		"src/routes/login/+page.server.js"

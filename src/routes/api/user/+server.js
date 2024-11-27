@@ -7,6 +7,8 @@ export async function POST({ request }) {
 	const data = await request.json();
 
 	let pageUsername = data.username;
+	let guess = data.guess;
+	let bet = data.bet;
 	const db = await connectToDB();
 	const users = db.collection("users");
 
