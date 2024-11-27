@@ -26,7 +26,7 @@ export const options = {
 
 export async function get_hooks() {
 	return {
-		
+		...(await import("../../../src/hooks.server.ts")),
 		
 	};
 }

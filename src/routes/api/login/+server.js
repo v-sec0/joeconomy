@@ -20,9 +20,9 @@ export async function POST({ request }) {
 		return json({success: false, message: "Bad username/password."});
 	}
 	let result = await bcrypt.compare(password, dbAccount.password)
-	
+
 	if (result) {
-		return json({ success: true, message: "Authenticated successfully." });
+		return json({ success: true, message: "Authenticated successfully.", id: dbAccount._id });
 	} else {
 		return json({success: false, message: "Bad username/password."});
 	}

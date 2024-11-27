@@ -1,5 +1,7 @@
 {
-	"/": [],
+	"/": [
+		"src/routes/+page.server.ts"
+	],
 	"/api/allUsers": [
 		"src/routes/api/allUsers/+server.js"
 	],
