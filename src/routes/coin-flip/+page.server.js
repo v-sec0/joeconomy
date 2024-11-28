@@ -3,10 +3,10 @@ import { redirect } from '@sveltejs/kit'
 let userID = '';
 
 export async function load({ locals }) {
-    if (locals.user == '') {
+    if (locals.session.user.userID === '') {
         redirect (302, "/login")
     } else {
-        userID = locals.user;
+        userID = locals.session.user.userID;
     }
 }
 
