@@ -1,6 +1,6 @@
 {
 	"/": [
-		"src/routes/+page.server.ts"
+		"src/routes/+page.server.js"
 	],
 	"/api/allUsers": [
 		"src/routes/api/allUsers/+server.js"
@@ -8,8 +8,14 @@
 	"/api/game": [
 		"src/routes/api/game/+server.js"
 	],
+	"/api/income/[type]": [
+		"src/routes/api/income/[type]/+server.js"
+	],
 	"/api/login": [
 		"src/routes/api/login/+server.js"
+	],
+	"/api/logout": [
+		"src/routes/api/logout/+server.js"
 	],
 	"/api/register": [
 		"src/routes/api/register/+server.js"

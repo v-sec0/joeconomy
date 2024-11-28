@@ -14,7 +14,7 @@ export async function connectToDB() {
 	// Test connection
 	await client.connect();
 	await client.db("joeconomy").command({ping: 1});
-	
+
 	// After testing establish database variable
 	return (client.db("joeconomy"));
 	
