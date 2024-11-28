@@ -23,6 +23,9 @@
 	"/login": [
 		"src/routes/login/+page.server.js"
 	],
+	"/slots": [
+		"src/routes/slots/+page.server.js"
+	],
 	"/user": [
 		"src/routes/user/+page.js"
 	],
