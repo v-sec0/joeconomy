@@ -29,6 +29,9 @@
 	"/login": [
 		"src/routes/login/+page.server.js"
 	],
+	"/roulette": [
+		"src/routes/roulette/+page.server.js"
+	],
 	"/slots": [
 		"src/routes/slots/+page.server.js"
 	],
