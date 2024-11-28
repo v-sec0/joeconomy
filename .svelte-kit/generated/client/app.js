@@ -13,7 +13,7 @@ export const nodes = [
 export const server_loads = [];
 
 export const dictionary = {
-		"/": [2],
+		"/": [~2],
 		"/coin-flip": [~3],
 		"/login": [~4],
 		"/user": [5],
