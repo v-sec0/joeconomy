@@ -7,6 +7,7 @@ export async function POST({ request }) {
 	const data = await request.json();
 	let game = data.game;
 	let guess = data.guess;
+	let guessValue = data.guessValue;
 	let bet = data.bet;
 	let userID = data.userID;
 
@@ -20,6 +21,9 @@ export async function POST({ request }) {
 			break;
 		case "slots":
 			[message, joes, result] = await slots(bet, userID);
+			break;
+		case "roulette":
+			[message, joes] = await roulette(bet, guess, guessValue, userID);
 			break;
 		default:
 			console.log("ERROR: GAME NOT FOUND");
@@ -63,6 +67,7 @@ async function coin(bet, guess, ID){
 	return [result, netGain];
 }
 
+//Spin some slots
 async function slots(bet, ID){
 	const db = await connectToDB();
 	const users = db.collection("users");
@@ -171,4 +176,104 @@ async function slots(bet, ID){
 
 	await users.updateOne({_id: ID}, { $inc: { joes: netGain } });
 	return [message, netGain, slots];
+}
+
+//Bet and spin a roulette wheel
+async function roulette(bet, guess, guessValue, ID){
+	//Roulette is stupid and every number has a color that I can't use math to find (I think)
+	let rouletteNumbers = [
+		{"number": 0, "color": "green"},
+		{"number": 1, "color": "red"},
+		{"number": 2, "color": "black"},
+		{"number": 3, "color": "red"},
+		{"number": 4, "color": "black"},
+		{"number": 5, "color": "red"},
+		{"number": 6, "color": "black"},
+		{"number": 7, "color": "red"},
+		{"number": 8, "color": "black"},
+		{"number": 9, "color": "red"},
+		{"number": 10, "color": "black"},
+		{"number": 11, "color": "black"},
+		{"number": 12, "color": "red"},
+		{"number": 13, "color": "black"},
+		{"number": 14, "color": "red"},
+		{"number": 15, "color": "black"},
+		{"number": 16, "color": "red"},
+		{"number": 17, "color": "black"},
+		{"number": 18, "color": "red"},
+		{"number": 19, "color": "red"},
+		{"number": 20, "color": "black"},
+		{"number": 21, "color": "red"},
+		{"number": 22, "color": "black"},
+		{"number": 23, "color": "red"},
+		{"number": 24, "color": "black"},
+		{"number": 25, "color": "red"},
+		{"number": 26, "color": "black"},
+		{"number": 27, "color": "red"},
+		{"number": 28, "color": "black"},
+		{"number": 29, "color": "black"},
+		{"number": 30, "color": "red"},
+		{"number": 31, "color": "black"},
+		{"number": 32, "color": "red"},
+		{"number": 33, "color": "black"},
+		{"number": 34, "color": "red"},
+		{"number": 35, "color": "black"},
+		{"number": 36, "color": "red"}];
+
+	const db = await connectToDB();
+	const users = db.collection("users");
+	ID = new ObjectId(ID);
+
+	let message = "";
+	let netGain = 0;
+
+	let chosenNumber = Math.floor(Math.random() * 37);
+	// @ts-ignore
+	let chosenColor = (rouletteNumbers.find(entry => entry.number === chosenNumber)).color;
+	let rouletteResult = chosenNumber + ", " + chosenColor;
+	let isOdd = chosenNumber % 2;
+	
+
+	if(guess == "number"){
+		if(guessValue == chosenNumber){
+			netGain += bet * 36;
+			message = "IT LANDED ON " + rouletteResult + " AND YOU WON " + netGain + " JOES!"
+		}
+		else{
+			netGain -= bet;
+			message = "It landed on " + rouletteResult + " and you won no joes";
+		}
+	}
+	else if(guess == "color"){
+		if(guessValue == chosenColor){
+			netGain += bet * 2;
+			message = "It landed on " + rouletteResult + " and you won " + netGain + " joes!"
+		}
+		else{
+			netGain -= bet;
+			message = "It landed on " + rouletteResult + " and you won no joes";
+		}
+	}
+	else{
+		if(chosenNumber == 0){
+			netGain -= bet;
+			message = "It landed on " + rouletteResult + " and you won no joes";
+		}
+		else if(guessValue == "odd" && isOdd){
+			netGain += bet * 2;
+			message = "It landed on " + rouletteResult + " and you won " + netGain + " joes!"
+		}
+		else if(guessValue == "even" && !isOdd){
+			netGain += bet * 2;
+			message = "It landed on " + rouletteResult + " and you won " + netGain + " joes!"
+		}
+		else{
+			netGain -= bet;
+			message = "It landed on " + rouletteResult + " and you won no joes";
+		}
+	}
+
+
+	await users.updateOne({_id: ID}, { $inc: { joes: netGain } });
+	return [message, netGain];
 }

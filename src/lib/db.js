@@ -14,7 +14,6 @@ export async function connectToDB() {
 	// Test connection
 	await client.connect();
 	await client.db("joeconomy").command({ping: 1});
-	console.log("Connected to MongoDB!");
 	
 	// After testing establish database variable
 	return (client.db("joeconomy"));
